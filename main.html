@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc mừng 8/3 ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pink: #ff4d8d;
+            --rose: #ff2d6d;
+            --gold: #ffd700;
+            --peach: #ffb3c6;
+            --purple: #c084fc;
+            --lavender: #e9d5ff;
+            --white: #fff8fc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0005;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Comfortaa', cursive;
+            cursor: none;
+        }
+
+        /* Custom cursor */
+        .cursor {
+            width: 12px; height: 12px;
+            background: var(--pink);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s;
+            box-shadow: 0 0 15px var(--pink), 0 0 30px var(--rose);
+            mix-blend-mode: screen;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0; left: 0;
+            display: block;
+        }
+
+        /* Radial glow background */
+        .bg-glow {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 50%, rgba(180, 30, 80, 0.25) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(192, 132, 252, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 80% 20%, rgba(255, 77, 141, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 1;
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1.3; }
+        }
+
+        /* Main container */
+        .container {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+            width: 90%;
+        }
+
+        /* Badge / ribbon on top */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(90deg, transparent, rgba(255,77,141,0.3), transparent);
+            border: 1px solid rgba(255,77,141,0.4);
+            border-radius: 50px;
+            padding: 6px 28px;
+            font-size: clamp(0.6rem, 2vw, 0.85rem);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--peach);
+            margin-bottom: 18px;
+            animation: fadeSlideDown 1.2s ease both;
+        }
+
+        /* Title row */
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 11vw, 7.5rem);
+            line-height: 1.1;
+            background: linear-gradient(135deg, #fff 0%, #ffd6e8 30%, #ffd700 60%, #ffb3c6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(255, 100, 150, 0.5));
+            animation: fadeSlideUp 1s ease both;
+            animation-delay: 0.3s;
+            opacity: 0;
+        }
+
+        .date-title {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(3.5rem, 14vw, 10rem);
+            line-height: 1;
+            background: linear-gradient(160deg, #ffd700 0%, #ff9e40 30%, #ff4d8d 70%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 40px rgba(255, 200, 50, 0.6));
+            animation: fadeSlideUp 1s ease both, shimmer 3s linear infinite;
+            animation-delay: 0.6s;
+            opacity: 0;
+            position: relative;
+        }
+
+        @keyframes shimmer {
+            0% { filter: drop-shadow(0 0 30px rgba(255,200,50,0.5)); }
+            50% { filter: drop-shadow(0 0 60px rgba(255,77,141,0.8)); }
+            100% { filter: drop-shadow(0 0 30px rgba(255,200,50,0.5)); }
+        }
+
+        /* Decorative divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 16px 0;
+            animation: fadeIn 1s ease both;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        .divider-line {
+            height: 1px;
+            width: clamp(40px, 10vw, 100px);
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .divider-icon {
+            font-size: 1.2rem;
+            animation: rotateSlow 6s linear infinite;
+        }
+
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Subtitle */
+        .sub-title {
+            font-family: 'Comfortaa', cursive;
+            font-size: clamp(0.9rem, 3.5vw, 1.6rem);
+            color: var(--lavender);
+            opacity: 0;
+            letter-spacing: 1px;
+            animation: fadeSlideUp 1s ease both;
+            animation-delay: 1.2s;
+            text-shadow: 0 0 20px rgba(192, 132, 252, 0.8);
+        }
+
+        /* Floating roses */
+        .rose {
+            position: absolute;
+            font-size: clamp(1rem, 3vw, 2rem);
+            pointer-events: none;
+            z-index: 5;
+            animation: floatUp linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes floatUp {
+            0%   { transform: translateY(110vh) rotate(0deg) scale(0.5); opacity: 0; }
+            10%  { opacity: 0.8; }
+            90%  { opacity: 0.6; }
+            100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* Keyframe animations */
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeSlideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* Pulse ring around date */
+        .pulse-ring {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,77,141,0.3);
+            pointer-events: none;
+            z-index: 2;
+            animation: pulseRing 2.5s ease-out infinite;
+        }
+        .pulse-ring:nth-child(2) { animation-delay: 0.8s; border-color: rgba(255,215,0,0.2); }
+        .pulse-ring:nth-child(3) { animation-delay: 1.6s; border-color: rgba(192,132,252,0.15); }
+
+        @keyframes pulseRing {
+            0%   { transform: translate(-50%,-50%) scale(0.5); opacity: 0.8; }
+            100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0; }
+        }
+
+        /* Sparkle overlay */
+        .sparkle {
+            position: absolute;
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 6;
+            animation: sparklePop ease-out infinite;
+        }
+
+        @keyframes sparklePop {
+            0%   { transform: scale(0) rotate(0deg); opacity: 1; }
+            50%  { transform: scale(1.5) rotate(180deg); opacity: 1; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="bg-glow"></div>
+
+<!-- Pulse rings -->
+<div class="pulse-ring"></div>
+<div class="pulse-ring"></div>
+<div class="pulse-ring"></div>
+
+<canvas id="fireworksCanvas"></canvas>
+
+<div class="container">
+    <div class="badge">✦ Happy Women's Day ✦</div>
+    <h1 class="main-title">Chúc Mừng Ngày</h1>
+    <h1 class="date-title">🌸 8/3 🌸</h1>
+    <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-icon">✦</span>
+        <div class="divider-line"></div>
+    </div>
+    <div class="sub-title">Chúc cậu luôn rực rỡ và hạnh phúc! 💖</div>
+</div>
+
+<script>
+// --- Custom cursor ---
+const cursorEl = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+    cursorEl.style.left = e.clientX + 'px';
+    cursorEl.style.top = e.clientY + 'px';
+});
+
+
+// --- Sparkles on mouse ---
+document.addEventListener('mousemove', e => {
+    if (Math.random() > 0.6) return;
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    const colors = ['#ffd700','#ff4d8d','#c084fc','#fff','#ffb3c6'];
+    s.style.background = colors[Math.floor(Math.random() * colors.length)];
+    s.style.left = (e.clientX + (Math.random()-0.5)*20) + 'px';
+    s.style.top  = (e.clientY + (Math.random()-0.5)*20) + 'px';
+    const dur = 0.6 + Math.random() * 0.8;
+    s.style.animationDuration = dur + 's';
+    s.style.boxShadow = `0 0 6px ${s.style.background}`;
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), dur * 1000);
+});
+
+// --- Fireworks canvas ---
+const canvas = document.getElementById('fireworksCanvas');
+const ctx = canvas.getContext('2d');
+let width, height, fireworks = [], particles = [], glitters = [];
+
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Color palettes - richer and more varied
+const palettes = [
+    ['#ff4d8d','#ff80b0','#ffd6e8','#fff'],
+    ['#ffd700','#ffb300','#ff9e00','#fff8dc'],
+    ['#c084fc','#a855f7','#e9d5ff','#fff'],
+    ['#ff6b6b','#ff8e53','#ffd166','#fff'],
+    ['#ff4d8d','#ffd700','#c084fc','#fff'],
+];
+
+class Particle {
+    constructor(x, y, color, vel, type = 'normal') {
+        this.x = x; this.y = y;
+        this.color = color;
+        this.vel = vel;
+        this.alpha = 1;
+        this.friction = type === 'glitter' ? 0.98 : 0.94;
+        this.gravity = type === 'glitter' ? 0.05 : 0.18;
+        this.type = type;
+        this.size = type === 'star' ? (2 + Math.random()*2) : (1.5 + Math.random()*1.5);
+        this.decay = type === 'glitter' ? 0.005 : 0.012;
+    }
+    draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        if (this.type === 'star') {
+            drawStar(ctx, this.x, this.y, this.size, this.color);
+        } else {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = this.color;
+            ctx.fill();
+        }
+        ctx.restore();
+    }
+    update() {
+        this.vel.x *= this.friction;
+        this.vel.y *= this.friction;
+        this.vel.y += this.gravity;
+        this.x += this.vel.x;
+        this.y += this.vel.y;
+        this.alpha -= this.decay;
+    }
+}
+
+function drawStar(ctx, x, y, r, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.fillStyle = color;
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = color;
+    ctx.beginPath();
+    for (let i = 0; i < 5; i++) {
+        const angle = (i * 4 * Math.PI) / 5 - Math.PI / 2;
+        const ox = Math.cos(angle) * r, oy = Math.sin(angle) * r;
+        i === 0 ? ctx.moveTo(ox, oy) : ctx.lineTo(ox, oy);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+}
+
+class Firework {
+    constructor(forced = false) {
+        this.x = forced ? (width * 0.2 + Math.random() * width * 0.6) : (Math.random() * width);
+        this.y = height;
+        this.targetY = forced
+            ? (height * 0.1 + Math.random() * height * 0.55)
+            : (Math.random() * height * 0.65);
+        this.speed = 4 + Math.random() * 4;
+        this.palette = palettes[Math.floor(Math.random() * palettes.length)];
+        this.color = this.palette[Math.floor(Math.random() * this.palette.length)];
+        this.exploded = false;
+        this.trail = [];
+        this.explodeType = Math.floor(Math.random() * 5);
+    }
+    update() {
+        if (!this.exploded) {
+            this.trail.push({ x: this.x, y: this.y, alpha: 1 });
+            if (this.trail.length > 12) this.trail.shift();
+            this.y -= this.speed;
+            if (this.y <= this.targetY) {
+                this.exploded = true;
+                this.explode();
+            }
+        }
+    }
+    draw() {
+        if (!this.exploded) {
+            // Draw trail
+            this.trail.forEach((t, i) => {
+                ctx.save();
+                ctx.globalAlpha = (i / this.trail.length) * 0.6;
+                ctx.beginPath();
+                ctx.arc(t.x, t.y, 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
+                ctx.fill();
+                ctx.restore();
+            });
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = '#fff';
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = this.color;
+            ctx.fill();
+        }
+    }
+    explode() {
+        const count = 100 + Math.floor(Math.random() * 60);
+        const pal = this.palette;
+
+        if (this.explodeType === 0) {
+            // Standard burst
+            for (let i = 0; i < count; i++) {
+                const angle = (i / count) * Math.PI * 2;
+                const spd = 2 + Math.random() * 8;
+                const c = pal[Math.floor(Math.random() * pal.length)];
+                particles.push(new Particle(this.x, this.y, c, {
+                    x: Math.cos(angle) * spd, y: Math.sin(angle) * spd
+                }, Math.random() > 0.7 ? 'star' : 'normal'));
+            }
+        } else if (this.explodeType === 1) {
+            // Ring burst
+            for (let i = 0; i < count; i++) {
+                const angle = (i / count) * Math.PI * 2;
+                const spd = 5 + Math.random() * 2;
+                const c = pal[Math.floor(Math.random() * pal.length)];
+                particles.push(new Particle(this.x, this.y, c, {
+                    x: Math.cos(angle) * spd, y: Math.sin(angle) * spd
+                }, 'normal'));
+            }
+        } else if (this.explodeType === 2) {
+            // Double ring
+            for (let ring = 0; ring < 2; ring++) {
+                const r = ring === 0 ? 4 : 8;
+                for (let i = 0; i < 60; i++) {
+                    const angle = (i / 60) * Math.PI * 2;
+                    const c = pal[ring % pal.length];
+                    particles.push(new Particle(this.x, this.y, c, {
+                        x: Math.cos(angle) * r, y: Math.sin(angle) * r
+                    }, ring === 1 ? 'star' : 'normal'));
+                }
+            }
+        } else if (this.explodeType === 3) {
+            // Willow (glitter fall)
+            for (let i = 0; i < 80; i++) {
+                const angle = (i / 80) * Math.PI * 2;
+                const spd = 2 + Math.random() * 5;
+                const c = pal[Math.floor(Math.random() * pal.length)];
+                particles.push(new Particle(this.x, this.y, c, {
+                    x: Math.cos(angle) * spd * 0.5, y: Math.sin(angle) * spd
+                }, 'glitter'));
+            }
+        } else {
+            // Cross / star pattern
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const spd = 7;
+                const c = pal[i % pal.length];
+                for (let j = 0; j < 10; j++) {
+                    const s = spd * (j / 10);
+                    particles.push(new Particle(this.x, this.y, c, {
+                        x: Math.cos(angle) * s, y: Math.sin(angle) * s
+                    }, j === 9 ? 'star' : 'normal'));
+                }
+            }
+        }
+
+        // White flash center
+        for (let i = 0; i < 20; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const spd = Math.random() * 3;
+            particles.push(new Particle(this.x, this.y, '#fff', {
+                x: Math.cos(angle) * spd, y: Math.sin(angle) * spd
+            }, 'normal'));
+        }
+    }
+}
+
+// Click to launch firework
+canvas.addEventListener('click', e => {
+    const fw = new Firework(false);
+    fw.x = e.clientX;
+    fw.y = height;
+    fw.targetY = e.clientY;
+    fireworks.push(fw);
+});
+
+let frameCount = 0;
+function animate() {
+    frameCount++;
+    ctx.fillStyle = 'rgba(10, 0, 5, 0.18)';
+    ctx.fillRect(0, 0, width, height);
+
+    // Spawn fireworks — slightly more frequent
+    if (Math.random() < 0.045) fireworks.push(new Firework(true));
+
+    fireworks.forEach((f, i) => {
+        f.update(); f.draw();
+        if (f.exploded) fireworks.splice(i, 1);
+    });
+
+    particles = particles.filter(p => {
+        p.update(); p.draw();
+        return p.alpha > 0;
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>
